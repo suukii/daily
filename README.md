@@ -1,5 +1,5 @@
 - [二分查找](./collections/find_target.js)
-- [最大并发数为 maxNum 的请求函数](./collections/multiple_requests.js)
+- [实现一个批量请求函数](./collections/multiple_requests.js)
 
 
 - [【每日一题】- 2020-06-28 - 尾递归优化](https://github.com/azl397985856/fe-interview/issues/133#issuecomment-650935413)
