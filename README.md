@@ -37,3 +37,7 @@
 * [【每日一题】- 2020-05-27 - 砝码的最小数量 --lucifer](https://github.com/azl397985856/leetcode/issues/375#issuecomment-634516360)
 * [【每日一题】- 2020-04-27 - 多人运动](https://github.com/azl397985856/leetcode/issues/347#issuecomment-620939404)
 * [【每日一题】- 2020-04-27 - 多人运动 --lucifer](https://github.com/azl397985856/leetcode/issues/347#issuecomment-619723641)
+
+## Errors
+
+- [Github Actions Error - refusing to allow an OAuth App to create or update workflow](./collections/workflow_problem.md)
