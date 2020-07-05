@@ -2,7 +2,7 @@
 
 ## 解决办法
 
-在 [`Github -> Settings -> Developer setting -> Personal access tokens`](https://github.com/settings/tokens) 中生成一个新的 token，记得把把 `workflow` 也勾上。
+在 [`Github -> Settings -> Developer setting -> Personal access tokens`](https://github.com/settings/tokens) 中生成一个新的 token，记得把 `workflow` 也勾上。
 
 ![](../assets/workflow_problem_1.png)
 
