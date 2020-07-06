@@ -346,4 +346,39 @@ test('test', () => {
 
 ## CI
 
-TODO...
+点击 GitHub 仓库的 Actions 标签，选一个 Action 模板。
+
+> 这里选的是 Node.js。
+
+根据需要修改 `node.js.yml` 并提交修改到仓库中。
+
+```yml
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install
+      - run: npm run lint
+      - run: npm test
+```
