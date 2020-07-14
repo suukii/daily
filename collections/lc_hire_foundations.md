@@ -41,12 +41,12 @@ const fixtureFirefoxStack = `
 
 ```ts
 interface ErrorMessage {
-  message: string
-  stack: Array<{
-    line: number
-    column: number
-    filename: string
-  }>
+    message: string
+    stack: Array<{
+        line: number
+        column: number
+        filename: string
+    }>
 }
 ```
 
@@ -79,13 +79,17 @@ TypeError: Error raised
 
 ## 评判标准
 
-- 完成所描述功能. `50 分`
-- 完整的单元测试，覆盖 `输入` 中举例的 `Chrome` 和 `Firefox` 的两个 `Fixture`. `30 分`
-- 配置 `lint` 与 `format`. `10 分`
-- 配置 `precommit` 与 `commitlint`. `10 分`
-- 配置 `CI`, 并且在 `CI` 上运行 `单元测试与 Lint`. `30 分`
+-   完成所描述功能. `50 分`
+-   完整的单元测试，覆盖 `输入` 中举例的 `Chrome` 和 `Firefox` 的两个 `Fixture`. `30 分`
+-   配置 `lint` 与 `format`. `10 分`
+-   配置 `precommit` 与 `commitlint`. `10 分`
+-   配置 `CI`, 并且在 `CI` 上运行 `单元测试与 Lint`. `30 分`
 
 # 解题记录
+
+**仓库地址**
+
+https://github.com/suukii/leetcode-hire-foundations_zh
 
 ## 初始化
 
@@ -121,11 +125,11 @@ TypeError: Error raised
 
 ```json
 {
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    "husky": {
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
     }
-  }
 }
 ```
 
@@ -133,7 +137,7 @@ TypeError: Error raised
 
 ```js
 module.exports = {
-  extends: ['@commitlint/config-conventional'],
+    extends: ['@commitlint/config-conventional'],
 }
 ```
 
@@ -153,9 +157,9 @@ module.exports = {
 
 ```json
 {
-  "scripts": {
-    "dev": "ts-node-dev --respawn --transpileOnly ./index.ts"
-  }
+    "scripts": {
+        "dev": "ts-node-dev --respawn --transpileOnly ./index.ts"
+    }
 }
 ```
 
@@ -177,9 +181,9 @@ module.exports = {
 
 ```json
 {
-  "compilerOptions": {
-    "types": ["jest"]
-  }
+    "compilerOptions": {
+        "types": ["jest"]
+    }
 }
 ```
 
@@ -187,9 +191,9 @@ module.exports = {
 
 ```json
 {
-  "scripts": {
-    "test": "jest"
-  }
+    "scripts": {
+        "test": "jest"
+    }
 }
 ```
 
@@ -209,12 +213,12 @@ module.exports = {
 
 ```js
 module.exports = {
-  semi: true,
-  trailingComma: 'all',
-  singleQuote: true,
-  printWidth: 120,
-  tabWidth: 4,
-  endOfLine: 'crlf',
+    semi: true,
+    trailingComma: 'all',
+    singleQuote: true,
+    printWidth: 120,
+    tabWidth: 4,
+    endOfLine: 'crlf',
 }
 ```
 
@@ -226,17 +230,17 @@ module.exports = {
 
 ```js
 module.exports = {
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: 'module',
-  },
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
-    'plugin:prettier/recommended',
-  ],
-  rules: {},
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+        ecmaVersion: 2020,
+        sourceType: 'module',
+    },
+    extends: [
+        'plugin:@typescript-eslint/recommended',
+        'prettier/@typescript-eslint',
+        'plugin:prettier/recommended',
+    ],
+    rules: {},
 }
 ```
 
@@ -246,9 +250,9 @@ module.exports = {
 
 ```json
 {
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  }
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    }
 }
 ```
 
@@ -258,37 +262,38 @@ module.exports = {
 
 ```ts
 interface StackMessage {
-  line: number
-  column: number
-  filename: string
+    line: number
+    column: number
+    filename: string
 }
 
 export interface ErrorMessage {
-  message: string
-  stack: Array<StackMessage>
+    message: string
+    stack: Array<StackMessage>
 }
 
 export function parseError(err: Error): ErrorMessage {
-  const stack: Array<string> = (err.stack || '').split('\n').slice(1)
+    const stack: Array<string> = (err.stack || '').split('\n').slice(1)
 
-  const parsedStack = stack
-    .map(
-      (msg: string): StackMessage => {
-        const detail = /([^\s|@]+\.[^\.]+)?:(\d+):(\d+)$/.exec(msg) || []
-        const [, filename, line, column] = detail
-        return {
-          line: Number(line),
-          column: Number(column),
-          filename: filename || '',
-        }
-      }
-    )
-    .filter((detail: StackMessage): boolean => detail.filename !== '')
+    const parsedStack = stack
+        .map(
+            (msg: string): StackMessage => {
+                const detail =
+                    /([^\s|@]+\.[^\.]+)?:(\d+):(\d+)$/.exec(msg) || []
+                const [, filename, line, column] = detail
+                return {
+                    line: Number(line),
+                    column: Number(column),
+                    filename: filename || '',
+                }
+            },
+        )
+        .filter((detail: StackMessage): boolean => detail.filename !== '')
 
-  return {
-    message: err.message,
-    stack: parsedStack,
-  }
+    return {
+        message: err.message,
+        stack: parsedStack,
+    }
 }
 ```
 
@@ -298,49 +303,49 @@ export function parseError(err: Error): ErrorMessage {
 import { parseError } from '../src/index'
 
 test('test', () => {
-  const error1: Error = {
-    name: 'TypeError',
-    message: 'Error raised',
-    stack: `TypeError: Error raised
+    const error1: Error = {
+        name: 'TypeError',
+        message: 'Error raised',
+        stack: `TypeError: Error raised
           at bar http://192.168.31.8:8000/c.js:2:9
           at foo http://192.168.31.8:8000/b.js:4:15
           at calc http://192.168.31.8:8000/a.js:4:3
           at <anonymous>:1:11
           at http://192.168.31.8:8000/a.js:22:3`,
-  }
-  const ans1 = {
-    message: 'Error raised',
-    stack: [
-      { line: 2, column: 9, filename: 'http://192.168.31.8:8000/c.js' },
-      { line: 4, column: 15, filename: 'http://192.168.31.8:8000/b.js' },
-      { line: 4, column: 3, filename: 'http://192.168.31.8:8000/a.js' },
-      { line: 22, column: 3, filename: 'http://192.168.31.8:8000/a.js' },
-    ],
-  }
+    }
+    const ans1 = {
+        message: 'Error raised',
+        stack: [
+            { line: 2, column: 9, filename: 'http://192.168.31.8:8000/c.js' },
+            { line: 4, column: 15, filename: 'http://192.168.31.8:8000/b.js' },
+            { line: 4, column: 3, filename: 'http://192.168.31.8:8000/a.js' },
+            { line: 22, column: 3, filename: 'http://192.168.31.8:8000/a.js' },
+        ],
+    }
 
-  expect(parseError(error1)).toStrictEqual(ans1)
+    expect(parseError(error1)).toStrictEqual(ans1)
 
-  const error2: Error = {
-    name: 'Error',
-    message: '',
-    stack: `
+    const error2: Error = {
+        name: 'Error',
+        message: '',
+        stack: `
       bar@http://192.168.31.8:8000/c.js:2:9
       foo@http://192.168.31.8:8000/b.js:4:15
       calc@http://192.168.31.8:8000/a.js:4:3
       <anonymous>:1:11
       http://192.168.31.8:8000/a.js:22:3`,
-  }
+    }
 
-  const ans2 = {
-    message: '',
-    stack: [
-      { line: 2, column: 9, filename: 'http://192.168.31.8:8000/c.js' },
-      { line: 4, column: 15, filename: 'http://192.168.31.8:8000/b.js' },
-      { line: 4, column: 3, filename: 'http://192.168.31.8:8000/a.js' },
-      { line: 22, column: 3, filename: 'http://192.168.31.8:8000/a.js' },
-    ],
-  }
-  expect(parseError(error2)).toStrictEqual(ans2)
+    const ans2 = {
+        message: '',
+        stack: [
+            { line: 2, column: 9, filename: 'http://192.168.31.8:8000/c.js' },
+            { line: 4, column: 15, filename: 'http://192.168.31.8:8000/b.js' },
+            { line: 4, column: 3, filename: 'http://192.168.31.8:8000/a.js' },
+            { line: 22, column: 3, filename: 'http://192.168.31.8:8000/a.js' },
+        ],
+    }
+    expect(parseError(error2)).toStrictEqual(ans2)
 })
 ```
 
@@ -359,26 +364,26 @@ test('test', () => {
 name: Node.js CI
 
 on:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+    push:
+        branches: [master]
+    pull_request:
+        branches: [master]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+    test:
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [10.x]
+        strategy:
+            matrix:
+                node-version: [10.x]
 
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm run lint
-      - run: npm test
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - run: npm install
+            - run: npm run lint
+            - run: npm test
 ```
