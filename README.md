@@ -3,7 +3,7 @@
 [题目链接](https://github.com/LeetCode-OpenSource/hire)
 
 -   [x] 基础编程能力 [个人回答](https://github.com/suukii/leetcode-hire-foundations_zh) [解题过程记录](./collections/lc_hire_foundations.md)
--   [x] 编写复杂的 TypeScript 类型 [完整代码](./collections/lc_hire_typescript.ts) [分析](https://github.com/suukii/Articles/typescript_leetcode_hire.md)
+-   [x] 编写复杂的 TypeScript 类型 [完整代码](./collections/lc_hire_typescript.ts) [分析](https://github.com/suukii/Articles/blob/master/articles/typescript_leetcode_hire.md)
 -   [ ] 用 Webpack 实现 predictable long term cache
 -   [ ] 编写工程化的组件
 -   [ ] 用 RxJS 处理复杂的异步业务
