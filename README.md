@@ -8,8 +8,9 @@
 -   [ ] 编写工程化的组件
 -   [ ] 用 RxJS 处理复杂的异步业务
 
-## 其他
+## Coding
 
+-   [`Object.is() polyfill`](./collections/object_is.js)
 -   [二分查找](./collections/find_target.js)
 -   [实现一个批量请求函数](./collections/multiple_requests.js)
 
