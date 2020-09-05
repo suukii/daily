@@ -18,7 +18,7 @@ const fixtureStack = `TypeError: Error raised
   at calc http://192.168.31.8:8000/a.js:4:3
   at <anonymous>:1:11
   at http://192.168.31.8:8000/a.js:22:3
-`
+`;
 ```
 
 在 `Firefox` 中，我们捕获到的错误的 `stack` 属性是以下格式:
@@ -30,7 +30,7 @@ const fixtureFirefoxStack = `
   calc@http://192.168.31.8:8000/a.js:4:3
   <anonymous>:1:11
   http://192.168.31.8:8000/a.js:22:3
-`
+`;
 ```
 
 如果 `stack` 中某一行不带文件路径，则忽略掉这行信息
@@ -41,12 +41,12 @@ const fixtureFirefoxStack = `
 
 ```ts
 interface ErrorMessage {
-    message: string
+    message: string;
     stack: Array<{
-        line: number
-        column: number
-        filename: string
-    }>
+        line: number;
+        column: number;
+        filename: string;
+    }>;
 }
 ```
 
@@ -138,7 +138,7 @@ https://github.com/suukii/leetcode-hire-foundations_zh
 ```js
 module.exports = {
     extends: ['@commitlint/config-conventional'],
-}
+};
 ```
 
 ## TypeScript
@@ -158,7 +158,7 @@ module.exports = {
 ```json
 {
     "scripts": {
-        "dev": "ts-node-dev --respawn --transpileOnly ./index.ts"
+        "dev": "ts-node-dev --respawn --transpile-only ./index.ts"
     }
 }
 ```
@@ -219,7 +219,7 @@ module.exports = {
     printWidth: 120,
     tabWidth: 4,
     endOfLine: 'crlf',
-}
+};
 ```
 
 安装 ESLint：
@@ -241,7 +241,7 @@ module.exports = {
         'plugin:prettier/recommended',
     ],
     rules: {},
-}
+};
 ```
 
 > "plugin:prettier/recommended" 需要放到最后
@@ -262,45 +262,45 @@ module.exports = {
 
 ```ts
 interface StackMessage {
-    line: number
-    column: number
-    filename: string
+    line: number;
+    column: number;
+    filename: string;
 }
 
 export interface ErrorMessage {
-    message: string
-    stack: Array<StackMessage>
+    message: string;
+    stack: Array<StackMessage>;
 }
 
 export function parseError(err: Error): ErrorMessage {
-    const stack: Array<string> = (err.stack || '').split('\n').slice(1)
+    const stack: Array<string> = (err.stack || '').split('\n').slice(1);
 
     const parsedStack = stack
         .map(
             (msg: string): StackMessage => {
                 const detail =
-                    /([^\s|@]+\.[^\.]+)?:(\d+):(\d+)$/.exec(msg) || []
-                const [, filename, line, column] = detail
+                    /([^\s|@]+\.[^\.]+)?:(\d+):(\d+)$/.exec(msg) || [];
+                const [, filename, line, column] = detail;
                 return {
                     line: Number(line),
                     column: Number(column),
                     filename: filename || '',
-                }
+                };
             },
         )
-        .filter((detail: StackMessage): boolean => detail.filename !== '')
+        .filter((detail: StackMessage): boolean => detail.filename !== '');
 
     return {
         message: err.message,
         stack: parsedStack,
-    }
+    };
 }
 ```
 
 ## 测试
 
 ```ts
-import { parseError } from '../src/index'
+import { parseError } from '../src/index';
 
 test('test', () => {
     const error1: Error = {
@@ -312,7 +312,7 @@ test('test', () => {
           at calc http://192.168.31.8:8000/a.js:4:3
           at <anonymous>:1:11
           at http://192.168.31.8:8000/a.js:22:3`,
-    }
+    };
     const ans1 = {
         message: 'Error raised',
         stack: [
@@ -321,9 +321,9 @@ test('test', () => {
             { line: 4, column: 3, filename: 'http://192.168.31.8:8000/a.js' },
             { line: 22, column: 3, filename: 'http://192.168.31.8:8000/a.js' },
         ],
-    }
+    };
 
-    expect(parseError(error1)).toStrictEqual(ans1)
+    expect(parseError(error1)).toStrictEqual(ans1);
 
     const error2: Error = {
         name: 'Error',
@@ -334,7 +334,7 @@ test('test', () => {
       calc@http://192.168.31.8:8000/a.js:4:3
       <anonymous>:1:11
       http://192.168.31.8:8000/a.js:22:3`,
-    }
+    };
 
     const ans2 = {
         message: '',
@@ -344,9 +344,9 @@ test('test', () => {
             { line: 4, column: 3, filename: 'http://192.168.31.8:8000/a.js' },
             { line: 22, column: 3, filename: 'http://192.168.31.8:8000/a.js' },
         ],
-    }
-    expect(parseError(error2)).toStrictEqual(ans2)
-})
+    };
+    expect(parseError(error2)).toStrictEqual(ans2);
+});
 ```
 
 ## CI
